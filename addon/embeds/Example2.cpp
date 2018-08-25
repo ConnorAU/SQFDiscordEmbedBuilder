@@ -1,4 +1,4 @@
-// ["Example",productVersion] call DiscordEmbedBuilder_fnc_send;
+// ["Example2",productVersion] call DiscordEmbedBuilder_fnc_send;
 class Example2 {
     webhookurl="000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     message="This is another example message";
