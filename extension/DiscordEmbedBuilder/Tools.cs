@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -46,14 +45,14 @@ namespace DiscordEmbedBuilder
             return id;
         }
 
-        internal static async Task<string> BuildAsyncReply(HttpContent responseContent)
+        internal static async Task LogAsyncReply(HttpContent responseContent)
         {
             string readResponse = "";
             using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
             {
                 readResponse += await reader.ReadToEndAsync();
             }
-            return readResponse;
+            if (readResponse.Length > 0) Logger(null, $"AsyncRet: {readResponse}");
         }
     }
 }

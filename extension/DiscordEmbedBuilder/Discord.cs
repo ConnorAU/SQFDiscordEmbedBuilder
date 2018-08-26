@@ -26,8 +26,7 @@ namespace DiscordEmbedBuilder
                 Types.EmbedsArray embeds = Converter.DeserializeObject<Types.EmbedsArray>(args[5]);
 
                 // Discord 2000 character limit
-                if (content.Length > 1999)
-                    content = content.Substring(0, 1999);
+                if (content.Length > 1999) content = content.Substring(0, 1999);
 
                 // Bare bones
                 JObject package = new JObject(
@@ -45,8 +44,7 @@ namespace DiscordEmbedBuilder
                     Types.EmbedArray embed = embedList.ElementAt(i);
                     if (embed == null) break;
                     JObject embedObject = BuildEmbedObject(embed);
-                    if (embedObject.Count > 0)
-                        embedProperty.Add(embedObject);
+                    if (embedObject.Count > 0) embedProperty.Add(embedObject);
                 }
                 if (embedProperty.Count() > 0) package.Add(new JProperty("embeds", embedProperty));
 
@@ -56,9 +54,7 @@ namespace DiscordEmbedBuilder
                     APIClient.BaseAddress = new Uri("https://discordapp.com/api/webhooks/");
                     APIClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = await APIClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(package), Encoding.UTF8, "application/json"));
-                    string responseStr = await Tools.BuildAsyncReply(response.Content);
-                    if (responseStr.Length > 0)
-                        Tools.Logger(null, $"APIRET: {responseStr}");
+                    await Tools.LogAsyncReply(response.Content);
                 }
             }
             catch (Exception e)
@@ -80,14 +76,13 @@ namespace DiscordEmbedBuilder
             Types.EmbedFields embedFields = embed.fields;
             Types.EmbedFooter embedFooter = embed.footer;
 
+            // Adding the basics
             embed.title = RemoveReservedString(embed.title);
             embed.description = RemoveReservedString(embed.description);
             embed.url = RemoveReservedString(embed.url);
             embed.color = RemoveReservedString(embed.color);
             embed.thumbnail = RemoveReservedString(embed.thumbnail);
             embed.image = RemoveReservedString(embed.image);
-
-            // Adding the basics
             if (embed.title.Length > 0) embedObject.Add(new JProperty("title", embed.title));
             if (embed.description.Length > 0) embedObject.Add(new JProperty("description", embed.description));
             if (embed.url.StartsWith("https://")) embedObject.Add(new JProperty("url", embed.url));
@@ -108,7 +103,6 @@ namespace DiscordEmbedBuilder
 
                 embedObject.Add(new JProperty("author", embedObjectAuthor));
             }
-
 
             embedFooter.text = RemoveReservedString(embedFooter.text);
             embedFooter.icon_url = RemoveReservedString(embedFooter.icon_url);
