@@ -1,6 +1,6 @@
-// ["Example2",productVersion] call DiscordEmbedBuilder_fnc_send;
+// ["Example2",productVersion] call DiscordEmbedBuilder_fnc_buildCfg;
 class Example2 {
-    webhookurl="000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    webhook="Example"; // CfgDiscordEmbedWebhooks
     message="This is another example message";
     username="Different username, same webhook";
     avatar="https://discordapp.com/assets/28174a34e77bb5e5310ced9f95cb480b.png";

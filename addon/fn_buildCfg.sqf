@@ -22,7 +22,7 @@ private _formatString = {
 	if _replaceEmpty then {_str call _emptyString} else {_str}
 };
 
-private _webhookurl = getText(_cfgDir >> "webhookurl");
+private _webhookurl = getText(configFile >> "CfgDiscordEmbedWebhooks" >> getText(_cfgDir >> "webhook"));
 private _message = [getText(_cfgDir >> "message"),false] call _formatString;
 private _username = [getText(_cfgDir >> "username"),false] call _formatString;
 private _avatar = getText(_cfgDir >> "avatar");

@@ -23,7 +23,7 @@ Example 2:
 	"Different username, same webhook",
 	"",
 	false,
-	[ // Maximum 10 embeds per message
+	[
 		[
 			"My Embed Title",
 			"My Embed Description",
@@ -41,7 +41,7 @@ Example 2:
 				"This is the footer text",
 				"https://steamcdn-a.opskins.media/steamcommunity/public/images/apps/107410/3212af52faf994c558bd622cb0f360c1ef295a6b.jpg"
 			],
-			[ // Maximum 25 fields per embed
+			[
                 ["Field 1","Content 1",true],
                 ["Field 2","Some words",true],
                 ["Field 3",":+1:",false],
@@ -90,13 +90,7 @@ params [
 	["_embeds",[],[[]]]
 ];
 
-// Webhook URL wouldn't be safe in client files so we keep it in the mod instead
-private _webhookurl = switch _webhookName do {
-    // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-	case "Example":{"000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"};
-	default {_webhookName}; // If we can't find a matching case, assume the webhook name is the webhook url (not recommended)
-};
-
+private _webhookurl = getText(configFile >> "CfgDiscordEmbedWebhooks" >> _webhookName);
 {
 	_x params [
 		["_title","",[""]],
