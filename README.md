@@ -90,7 +90,7 @@ You can build entire messages in SQF if you prefer that to configs. I suggest on
             "embed title",
             "embed description",
             "url",
-            "00FF00", // color RBG
+            "00FF00", // color RGB
             true,     // use timestamp
             "thumbnail url",
             "image url",
