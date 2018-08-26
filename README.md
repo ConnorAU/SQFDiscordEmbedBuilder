@@ -7,8 +7,7 @@ A discord webhook addon using basic SQF/Arma configs so even beginners can easil
 
 ## Features
 - 2-step installation
-- Design embeds how **you** want in Arma config format
-- Use SQF parameters for dynamic text content
+- Design embeds how **you** want in Arma config format and raw SQF
 
 ## Note
 - You may need to install [.NET Framework 4.5.2](https://www.microsoft.com/en-au/download/details.aspx?id=42642).
