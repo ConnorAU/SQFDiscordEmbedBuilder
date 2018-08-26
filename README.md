@@ -22,13 +22,13 @@ The following instructions are for an Arma 3 Server using the latest [release](h
 
 # Make your own embeds
 
-## Config
-The config is where you design your messages. There are quite a few settings for the each message which are explained below.
+## Config Templates
+The config is where you design message templates. The idea with templates is you can write up the structure of your message in the config, and use that structure in multiple scripts. There are quite a few settings for the each message which are explained below.
 
 ### Basic settings
 [Example.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/embeds/Example.cpp)
 
-- `webhookurl` - Unique URL provided by Discord. It determines what channel your message will send to.
+- `webhook` - [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/config.cpp#L35) identifier.
 - `message` - The text content of your message. This example uses `This is an example message`.<br/>![](https://i.imgur.com/x80hA14.png)
 - `username` - The name of the bot when it sends the message. If this is not set Discord will use the name set in the webhook settings.
 - `avatar` - The avatar of the bot when it sends the message. If this is not set Discord will use the image set in the webhook settings.
@@ -59,11 +59,11 @@ Messages can contain up to 10 embeds. These embeds must be defined inside the `E
 - `image` - Small image shown to the left of the footer text.
 
 ## SQF 
-The SQF side of this mod is very minimal. You don't need to edit the sqf files in the mod pbo at all as the customization is all done in the config file. 
 
-What you do need to know is how to execute the webhook, which is very simple.
+### Using a config template
+When using config templates, the only sqf you need to use is this:
 ```sqf
-[type,parameters] call DiscordEmbedBuilder_fnc_send;
+[type,parameters] call DiscordEmbedBuilder_fnc_buildCfg;
 ```
 
 1. Type: STRING - The name of the config class in `CfgDiscordEmbedBuilder` you wish to use.
@@ -74,11 +74,67 @@ Parameters are used in `message`, `username`, `embed title`, `embed description`
 format([string]+parameters);
 ```
 
+### Build with SQF
+You can build entire messages in SQF if you prefer that to configs. I suggest only using it for simple messages, however the system has full support for all the same settings as config templates so you can do what you like.
+
+[SQF Examples](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/fn_buildSqf.sqf#L10)
+
+```sqf
+[
+    "webhook identifier", // CfgDiscordEmbedWebhooks
+    "message",
+    "title",
+    "avatar url",
+    false, // tts
+    [ // Maximum 10 embeds per message
+        [
+            "embed title",
+            "embed description",
+            "url",
+            "00FF00", // color RBG
+            true,     // use timestamp
+            "thumbnail url",
+            "image url",
+            [
+                "author name",
+                "author url",
+                "author image"
+            ],
+            [
+                "footer text",
+                "footer image"
+            ],
+            [ // Maximum 25 fields per embed
+                [
+                    "field title",
+                    "field content",
+                    true  // inline
+                ],
+                [ /* another field */ ],
+                [ /* another field */ ],
+                [ /* another field */ ],
+                [ /* another field */ ]
+            ]
+        ],
+        [ /* another embed */ ],
+        [ /* another embed */ ]
+    ]
+] call DiscordEmbedBuilder_fnc_buildSqf;
+```
+
+
 ## Connecting your message to the webhook
 1. Open your Discord client and open the settings of the channel you want your message to send to.<br/>![Step 1](https://i.imgur.com/hFZ2bHw.png)
 2. Click `Webhooks` on the left panel, then click `Create Webhook`.<br/>![Step 2](https://i.imgur.com/8KJXkl4.png)
 3. Scroll down to `Webhook URL`, click `Copy`.<br/>![Step 3](https://i.imgur.com/l4gpTxP.png)
-4. Paste the URL in your `webhookurl` config property and remove the base URL.<br/>~~https://discordapp.com/api/webhooks/~~<br/>00000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+4. Create a unique property inside [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/config.cpp#L35) and remove the base URL.
+```cpp
+class CfgDiscordEmbedWebhooks {
+    // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Example="000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+};
+```
+5. Set `webhook` in your config template to the new property name, or use the new property name in the first element of your SQF build array.
 
 ### Video tutorial
 Here is a video tutorial showing how to set up your webhook. There is no audio to it but it shows you exactly what to do.<br/>
