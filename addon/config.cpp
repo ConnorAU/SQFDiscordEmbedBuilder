@@ -52,6 +52,8 @@ class CfgFunctions {
 		class Scripts {
             file = "\DiscordEmbedBuilder";
 			class init {preInit=1;};
+			class buildCfg {};
+			class buildSqf {};
 			class send {};
 		};
 	};
