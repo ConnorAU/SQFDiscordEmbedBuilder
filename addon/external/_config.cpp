@@ -6,6 +6,8 @@
 │   Please do not modify or remove this comment block   │
 └──────────────────────────────────────────────────────*/
 
+// Developer info: https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/README.md
+
 class CfgDiscordEmbedWebhooks {
     // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     Example="000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";

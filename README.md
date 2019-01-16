@@ -26,7 +26,7 @@ The config is where you design message templates. The idea with templates is you
 ### Basic settings
 [Example.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/Example.cpp)
 
-- `webhook` - [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L9) identifier.
+- `webhook` - [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L11) identifier.
 - `message` - The text content of your message. This example uses `This is an example message`.<br/>![](https://i.imgur.com/x80hA14.png)
 - `username` - The name of the bot when it sends the message. If this is not set Discord will use the name set in the webhook settings.
 - `avatar` - The avatar of the bot when it sends the message. If this is not set Discord will use the image set in the webhook settings.
@@ -36,7 +36,7 @@ That's all you need to send a simple text message, however there are more settin
 
 ### Embed settings
 Messages can contain up to 10 embeds. These embeds must be defined inside the `Embeds` subclass.
-[CfgDiscordEmbedTemplate](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L14)<br/>
+[CfgDiscordEmbedTemplate](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L16)<br/>
 [Example2.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/Example2.cpp)
 - `title` - Embed title text.
 - `description` - Description text, located under the title.
@@ -125,7 +125,7 @@ You can build entire messages in SQF if you prefer that to configs. I suggest on
 1. Open your Discord client and open the settings of the channel you want your message to send to.<br/>![Step 1](https://i.imgur.com/hFZ2bHw.png)
 2. Click `Webhooks` on the left panel, then click `Create Webhook`.<br/>![Step 2](https://i.imgur.com/8KJXkl4.png)
 3. Scroll down to `Webhook URL`, click `Copy`.<br/>![Step 3](https://i.imgur.com/l4gpTxP.png)
-4. Create a unique property inside [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L9) and remove the base URL.
+4. Create a unique property inside [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L11) and remove the base URL.
 ```cpp
 class CfgDiscordEmbedWebhooks {
     // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
