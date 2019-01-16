@@ -11,8 +11,7 @@ A discord webhook addon using basic SQF/Arma configs so even beginners can easil
 
 ## Note
 - You may need to install [.NET Framework 4.5.2](https://www.microsoft.com/en-au/download/details.aspx?id=42642).
-- The extensions were built and tested on Arma 3 Dedicated Server.
-- This addon does work on Arma client however the extensions are **NOT** BattlEye whitelisted. 
+- This addon was built, tested and intended for use on Arma 3 Dedicated Server.
 
 # Setup
 The following instructions are for an Arma 3 Server using the latest [release](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/releases).
@@ -25,9 +24,9 @@ The following instructions are for an Arma 3 Server using the latest [release](h
 The config is where you design message templates. The idea with templates is you can write up the structure of your message in the config, and use that structure in multiple scripts. There are quite a few settings for the each message which are explained below.
 
 ### Basic settings
-[Example.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/embeds/Example.cpp)
+[Example.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/Example.cpp)
 
-- `webhook` - [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/config.cpp#L35) identifier.
+- `webhook` - [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L9) identifier.
 - `message` - The text content of your message. This example uses `This is an example message`.<br/>![](https://i.imgur.com/x80hA14.png)
 - `username` - The name of the bot when it sends the message. If this is not set Discord will use the name set in the webhook settings.
 - `avatar` - The avatar of the bot when it sends the message. If this is not set Discord will use the image set in the webhook settings.
@@ -37,8 +36,8 @@ That's all you need to send a simple text message, however there are more settin
 
 ### Embed settings
 Messages can contain up to 10 embeds. These embeds must be defined inside the `Embeds` subclass.
-[CfgDiscordEmbedTemplate](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/config.cpp)<br/>
-[Example2.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/embeds/Example2.cpp)
+[CfgDiscordEmbedTemplate](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L14)<br/>
+[Example2.cpp](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/Example2.cpp)
 - `title` - Embed title text.
 - `description` - Description text, located under the title.
 - `url` - Link opened when you click the title text.
@@ -76,7 +75,7 @@ format([string]+parameters);
 ### Build with SQF
 You can build entire messages in SQF if you prefer that to configs. I suggest only using it for simple messages, however the system has full support for all the same settings as config templates so you can do what you like.
 
-[SQF Examples](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/fn_buildSqf.sqf#L10)
+[SQF Examples](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/pbo/fn_buildSqf.sqf#L10)
 
 ```sqf
 [
@@ -126,7 +125,7 @@ You can build entire messages in SQF if you prefer that to configs. I suggest on
 1. Open your Discord client and open the settings of the channel you want your message to send to.<br/>![Step 1](https://i.imgur.com/hFZ2bHw.png)
 2. Click `Webhooks` on the left panel, then click `Create Webhook`.<br/>![Step 2](https://i.imgur.com/8KJXkl4.png)
 3. Scroll down to `Webhook URL`, click `Copy`.<br/>![Step 3](https://i.imgur.com/l4gpTxP.png)
-4. Create a unique property inside [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/config.cpp#L35) and remove the base URL.
+4. Create a unique property inside [CfgDiscordEmbedWebhooks](https://github.com/ConnorAU/SQFDiscordEmbedBuilder/blob/master/addon/external/_config.cpp#L9) and remove the base URL.
 ```cpp
 class CfgDiscordEmbedWebhooks {
     // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

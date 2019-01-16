@@ -6,6 +6,11 @@
 │   Please do not modify or remove this comment block   │
 └──────────────────────────────────────────────────────*/
 
+class CfgDiscordEmbedWebhooks {
+    // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Example="000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+};
+
 class CfgDiscordEmbedTemplate {
     title="";
     description="";
@@ -28,38 +33,8 @@ class CfgDiscordEmbedTemplate {
         //{title,content,inline}
     };
 };
+
 class CfgDiscordEmbedBuilder {
-	#include "embeds\Example.cpp"
-	#include "embeds\Example2.cpp"
-};
-class CfgDiscordEmbedWebhooks {
-    // https://discordapp.com/api/webhooks/000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    Example="000000000000000000/XXXXXXX_XXXXXXXXXXXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-};
-
-
-
-// You don't need to worry about this stuff
-class CfgPatches {
-	class DiscordEmbedBuilder {
-        name="DiscordEmbedBuilder";
-        author="Connor";
-        url="https://steamcommunity.com/id/_connor";
-
-		requiredVersion=1.68;
-		requiredAddons[]={};
-		units[]={};
-		weapons[]={};
-	};
-};
-class CfgFunctions {
-	class DiscordEmbedBuilder {
-		class Scripts {
-            file = "\DiscordEmbedBuilder";
-			class init {preInit=1;};
-			class buildCfg {};
-			class buildSqf {};
-			class send {};
-		};
-	};
+	#include "\@DiscordEmbedBuilder\external\Example.cpp"
+	#include "\@DiscordEmbedBuilder\external\Example2.cpp"
 };
