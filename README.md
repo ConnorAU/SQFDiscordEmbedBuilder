@@ -137,3 +137,6 @@ class CfgDiscordEmbedWebhooks {
 ### Video tutorial
 Here is a video tutorial showing how to set up your webhook. There is no audio to it but it shows you exactly what to do.<br/>
 https://youtu.be/cEWo6Anlliw
+
+# Contact Me
+If you have any questions about this mod, you can contact me on discord: https://discord.gg/DMkxetD
