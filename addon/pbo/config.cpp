@@ -9,7 +9,7 @@
 // You don't need to worry about this stuff
 #include "\@DiscordEmbedBuilder\external\_config.cpp"
 class CfgPatches {
-	class DiscordEmbedBuilder {
+	class CAU_DiscordEmbedBuilder {
         name="DiscordEmbedBuilder";
         author="Connor";
         url="https://steamcommunity.com/id/_connor";
@@ -21,9 +21,10 @@ class CfgPatches {
 	};
 };
 class CfgFunctions {
-	class DiscordEmbedBuilder {
+	class CAU_DiscordEmbedBuilder {
+		tag="DiscordEmbedBuilder";
 		class Scripts {
-            file = "\DiscordEmbedBuilder";
+            file = "\cau\discordembedbuilder";
 			class init {preInit=1;};
 			class buildCfg {};
 			class buildSqf {};
