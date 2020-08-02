@@ -3,7 +3,7 @@ class Example2 {
     webhook="Example"; // CfgDiscordEmbedWebhooks
     message="This is another example message";
     username="Different username, same webhook";
-    avatar="https://discordapp.com/assets/28174a34e77bb5e5310ced9f95cb480b.png";
+    avatar="https://discord.com/assets/28174a34e77bb5e5310ced9f95cb480b.png";
     tts=0;
     // Maximum of 10 embeds per template
     class Embeds {
@@ -22,7 +22,7 @@ class Example2 {
             class Footer {
                 text="This is the footer text";
                 image="https://steamcdn-a.opskins.media/steamcommunity/public/images/apps/107410/3212af52faf994c558bd622cb0f360c1ef295a6b.jpg";
-            }; 
+            };
             fields[]={
                 //{title,content,inline}
                 {"Field 1","Content 1",1},

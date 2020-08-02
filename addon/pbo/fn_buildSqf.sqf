@@ -12,7 +12,7 @@ Example 1:
 	"Example",
 	"This is an example message",
 	"Example Name",
-	"https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png",
+	"https://discord.com/assets/2c21aeda16de354ba5334551a883b481.png",
 	false
 ] call DiscordEmbedBuilder_fnc_buildSqf;
 

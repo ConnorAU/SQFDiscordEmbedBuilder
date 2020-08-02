@@ -51,7 +51,7 @@ namespace DiscordEmbedBuilder
                 // Execute webhook
                 using (HttpClient APIClient = new HttpClient())
                 {
-                    APIClient.BaseAddress = new Uri("https://discordapp.com/api/webhooks/");
+                    APIClient.BaseAddress = new Uri("https://discord.com/api/webhooks/");
                     APIClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = await APIClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(package), Encoding.UTF8, "application/json"));
                     await Tools.LogAsyncReply(response.Content);
