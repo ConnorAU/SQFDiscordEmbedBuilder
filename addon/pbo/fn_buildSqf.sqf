@@ -91,7 +91,7 @@ Example 2:
 
 if !(uiNamespace getVariable ["DiscordEmbedBuilder_LoadSuccess",false]) exitwith {false};
 
-private _emptyString = { [EMPTY_STRING,_this] select (_this != ""); };
+private _emptyString = { [_this,EMPTY_STRING] select (_this == ""); };
 
 params [
 	["_webhookName","",[""]],
@@ -103,7 +103,7 @@ params [
 ];
 
 private _webhookurl = getText(configFile >> "CfgDiscordEmbedWebhooks" >> _webhookName);
-{
+_embeds = _embeds apply {
 	_x params [
 		["_title","",[""]],
 		["_description","",[""]],
@@ -132,18 +132,26 @@ private _webhookurl = getText(configFile >> "CfgDiscordEmbedWebhooks" >> _webhoo
 		["_authorImage","",[""]]
 	];
 	_authorName = _authorName call _emptyString;
-	_authorURL = _authorURL call _emptyString;
-	_authorImage = _authorImage call _emptyString;
-	_author = [[],[_authorName,_authorURL,_authorImage]] select (_authorName != EMPTY_STRING);
+	_author = if (_authorName == EMPTY_STRING) then {[]} else {
+		[
+			_authorName,
+			_authorURL call _emptyString,
+			_authorImage call _emptyString
+		]
+	};
 
 	// Footer things
 	_footer params [
-		["_footerName","",[""]],
+		["_footerText","",[""]],
 		["_footerImage","",[""]]
 	];
-	_footerName = _footerName call _emptyString;
-	_footerImage = _footerImage call _emptyString;
-	_footer = [[],[_footerName,_footerImage]] select (_footerName != EMPTY_STRING);
+	_footerText = _footerText call _emptyString;
+	_footer = if (_footerText == EMPTY_STRING) then {[]} else {
+		[
+			_footerText,
+			_footerImage call _emptyString
+		]
+	};
 
 	// Field things
 	_fields = _fields apply {
@@ -152,10 +160,14 @@ private _webhookurl = getText(configFile >> "CfgDiscordEmbedWebhooks" >> _webhoo
 			["_fieldContent","",[""]],
 			["_fieldInline",false,[true]]
 		];
-		[_fieldName call _emptyString,_fieldContent call _emptyString,_fieldInline];
+		[
+			_fieldName call _emptyString,
+			_fieldContent call _emptyString,
+			_fieldInline
+		]
 	};
 
-	_embeds set [_forEachIndex,[_title,_description,_url,_color,_timestamp,_thumbnail,_image,_author,_footer,_fields]];
-} foreach _embeds;
+	[_title,_description,_url,_color,_timestamp,_thumbnail,_image,_author,_footer,_fields]
+};
 
 [_webhookurl,_message,_username,_avatar,_tts,_embeds] call DiscordEmbedBuilder_fnc_send;
