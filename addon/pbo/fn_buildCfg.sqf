@@ -1,10 +1,22 @@
-/*──────────────────────────────────────────────────────┐
-│   Author: Connor                                      │
-│   Steam:  https://steamcommunity.com/id/_connor       │
-│   Github: https://github.com/ConnorAU                 │
-│                                                       │
-│   Please do not modify or remove this comment block   │
-└──────────────────────────────────────────────────────*/
+/* ----------------------------------------------------------------------------
+Project:
+	https://github.com/ConnorAU/SQFDiscordEmbedBuilder
+
+Author:
+	ConnorAU - https://github.com/ConnorAU
+
+Function:
+	DiscordEmbedBuilder_fnc_buildCfg
+
+Description:
+	Builds a message from the config template provided
+
+Information:
+	https://github.com/ConnorAU/SQFDiscordEmbedBuilder/wiki/Build-with-config-templates
+
+Return:
+	BOOL - true if the message was sent to the extension
+---------------------------------------------------------------------------- */
 
 // The extension deserializer doesn't like empty strings, so this string is reserved as empty
 #define EMPTY_STRING toString[1]
@@ -16,7 +28,7 @@ private _cfgDir = configFile >> "CfgDiscordEmbedBuilder" >> _template;
 if (isNull _cfgDir) exitwith {false};
 
 private _emptyString = { [EMPTY_STRING,_this] select (_this != ""); };
-private _formatString = { 
+private _formatString = {
 	params [["_str","",[""]],["_replaceEmpty",true,[true]]];
 	private _str = format([_str]+_textParameters);
 	if _replaceEmpty then {_str call _emptyString} else {_str}
@@ -38,7 +50,7 @@ private ["_title","_description","_url","_color","_timestamp","_thumbnail","_ima
 	_timestamp = getNumber(_x >> "timestamp");
 	_thumbnail = getText(_x >> "thumbnail") call _emptyString;
 	_image = getText(_x >> "image") call _emptyString;
-	
+
 	// tobool
 	_timestamp = _timestamp isEqualTo 1;
 

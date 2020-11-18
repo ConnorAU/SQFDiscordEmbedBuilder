@@ -1,10 +1,16 @@
-/*──────────────────────────────────────────────────────┐
-│   Author: Connor                                      │
-│   Steam:  https://steamcommunity.com/id/_connor       │
-│   Github: https://github.com/ConnorAU                 │
-│                                                       │
-│   Please do not modify or remove this comment block   │
-└──────────────────────────────────────────────────────*/
+/* ----------------------------------------------------------------------------
+Project:
+	https://github.com/ConnorAU/SQFDiscordEmbedBuilder
+
+Author:
+	ConnorAU - https://github.com/ConnorAU
+
+Function:
+	DiscordEmbedBuilder_fnc_init
+
+Description:
+	Initialises the discord embed builder mod
+---------------------------------------------------------------------------- */
 
 with uiNamespace do {
 	DiscordEmbedBuilder_SessionKey = compileFinal str("DiscordEmbedBuilder" callExtension "init");

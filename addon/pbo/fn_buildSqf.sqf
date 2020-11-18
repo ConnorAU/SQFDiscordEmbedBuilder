@@ -1,10 +1,22 @@
-/*──────────────────────────────────────────────────────┐
-│   Author: Connor                                      │
-│   Steam:  https://steamcommunity.com/id/_connor       │
-│   Github: https://github.com/ConnorAU                 │
-│                                                       │
-│   Please do not modify or remove this comment block   │
-└──────────────────────────────────────────────────────*/
+/* ----------------------------------------------------------------------------
+Project:
+	https://github.com/ConnorAU/SQFDiscordEmbedBuilder
+
+Author:
+	ConnorAU - https://github.com/ConnorAU
+
+Function:
+	DiscordEmbedBuilder_fnc_buildSqf
+
+Description:
+	Builds a message from the sqf provided
+
+Information:
+	https://github.com/ConnorAU/SQFDiscordEmbedBuilder/wiki/Build-with-SQF
+
+Return:
+	BOOL - true if the message was sent to the extension
+---------------------------------------------------------------------------- */
 
 /*
 Example 1:
