@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Maca134.Arma.Serializer;
+using System.Text.RegularExpressions;
 
 namespace DiscordEmbedBuilder
 {
@@ -18,12 +19,12 @@ namespace DiscordEmbedBuilder
             try
             {
                 // Remove arma quotations
-                string url = args[0].Trim('"');
-                string content = args[1].Trim('"').Replace("\"\"", "\"");
-                string username = args[2].Trim('"');
-                string avatar = args[3].Trim('"');
-                bool tts = Convert.ToBoolean(args[4]);
-                Types.EmbedsArray embeds = Converter.DeserializeObject<Types.EmbedsArray>(args[5]);
+                string url = args[0].Trim('"').Replace("\"\"", "\"");
+				string content = args[1].Trim('"').Replace("\"\"", "\"");
+                string username = args[2].Trim('"').Replace("\"\"", "\"");
+				string avatar = args[3].Trim('"').Replace("\"\"", "\"");
+				bool tts = Convert.ToBoolean(args[4]);
+                Types.EmbedsArray embeds = DeserializeObject<Types.EmbedsArray>(args[5]);
 
                 // Discord 2000 character limit
                 if (content.Length > 1999) content = content.Substring(0, 1999);
@@ -63,13 +64,21 @@ namespace DiscordEmbedBuilder
             }
         }
 
-        private static string RemoveReservedString(string input)
-        {
-            // The arma array deserializer doesnt like empty strings and I dont know how to fix it, so heres a shit work around
-            return input.Replace(@"DEB_EMPTY_STR", "");
-        }
+		private static T DeserializeObject<T>(string value)
+		{
+			value = value.Replace("\"\"", "\\\"\\\"");
+			value = new Regex("([[,]?)nil([],]+)").Replace(value, "$1null$2");
+			Tools.Logger(null, value);
+			return JsonConvert.DeserializeObject<T>(value, new JsonConverter[]
+			{
+				new ArmaJsonConverter()
+			});
+		}
 
-        private static JObject BuildEmbedObject(Types.EmbedArray embed)
+		// The arma array deserializer doesnt like empty strings and I dont know how to fix it, so heres a shit work around
+		private static string RemoveReservedString(string input) => input == $"{(char)1}" ? "" : input;
+
+		private static JObject BuildEmbedObject(Types.EmbedArray embed)
         {
             JObject embedObject = new JObject();
             Types.EmbedAuthor embedAuthor = embed.author;
@@ -77,12 +86,12 @@ namespace DiscordEmbedBuilder
             Types.EmbedFooter embedFooter = embed.footer;
 
             // Adding the basics
-            embed.title = RemoveReservedString(embed.title);
-            embed.description = RemoveReservedString(embed.description);
-            embed.url = RemoveReservedString(embed.url);
-            embed.color = RemoveReservedString(embed.color);
-            embed.thumbnail = RemoveReservedString(embed.thumbnail);
-            embed.image = RemoveReservedString(embed.image);
+            embed.title = RemoveReservedString(embed.title).Replace("\"\"", "\""); ;
+            embed.description = RemoveReservedString(embed.description).Replace("\"\"", "\""); ;
+            embed.url = RemoveReservedString(embed.url).Replace("\"\"", "\""); ;
+            embed.color = RemoveReservedString(embed.color).Replace("\"\"", "\""); ;
+            embed.thumbnail = RemoveReservedString(embed.thumbnail).Replace("\"\"", "\""); ;
+            embed.image = RemoveReservedString(embed.image).Replace("\"\"", "\""); ;
             if (embed.title.Length > 0) embedObject.Add(new JProperty("title", embed.title));
             if (embed.description.Length > 0) embedObject.Add(new JProperty("description", embed.description));
             if (embed.url.StartsWith("https://")) embedObject.Add(new JProperty("url", embed.url));
@@ -92,9 +101,9 @@ namespace DiscordEmbedBuilder
             if (embed.image.StartsWith("https://")) embedObject.Add(new JProperty("image", new JObject(new JProperty("url", embed.image))));
 
             // Handle additional objects
-            embedAuthor.name = RemoveReservedString(embedAuthor.name);
-            embedAuthor.url = RemoveReservedString(embedAuthor.url);
-            embedAuthor.icon_url = RemoveReservedString(embedAuthor.icon_url);
+            embedAuthor.name = RemoveReservedString(embedAuthor.name).Replace("\"\"", "\""); ;
+            embedAuthor.url = RemoveReservedString(embedAuthor.url).Replace("\"\"", "\""); ;
+            embedAuthor.icon_url = RemoveReservedString(embedAuthor.icon_url).Replace("\"\"", "\""); ;
             if (embedAuthor.name.Length > 0)
             {
                 JObject embedObjectAuthor = new JObject(new JProperty("name", embedAuthor.name));
@@ -104,8 +113,8 @@ namespace DiscordEmbedBuilder
                 embedObject.Add(new JProperty("author", embedObjectAuthor));
             }
 
-            embedFooter.text = RemoveReservedString(embedFooter.text);
-            embedFooter.icon_url = RemoveReservedString(embedFooter.icon_url);
+            embedFooter.text = RemoveReservedString(embedFooter.text).Replace("\"\"", "\""); ;
+            embedFooter.icon_url = RemoveReservedString(embedFooter.icon_url).Replace("\"\"", "\""); ;
             if (embedFooter.text.Length > 0)
             {
                 JObject embedObjectFooter = new JObject(new JProperty("text", embedFooter.text));
@@ -131,8 +140,8 @@ namespace DiscordEmbedBuilder
 
         private static JObject BuildFieldObject(Types.EmbedField field)
         {
-            field.name = RemoveReservedString(field.name);
-            field.value = RemoveReservedString(field.value);
+            field.name = RemoveReservedString(field.name).Replace("\"\"", "\""); ;
+            field.value = RemoveReservedString(field.value).Replace("\"\"", "\""); ;
             if (field.name.Length == 0 || field.value.Length == 0) return null;
 
             return new JObject(

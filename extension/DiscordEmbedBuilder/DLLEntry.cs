@@ -1,4 +1,4 @@
-﻿using RGiesecke.DllExport;
+using RGiesecke.DllExport;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -9,7 +9,7 @@ namespace DiscordEmbedBuilder
     {
         private static readonly string SessionKey = Tools.GenTimeEncode();
         private static bool InitComplete = false;
-        
+
         #region Misc RVExtension Requirements
 #if IS_x64
         [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
@@ -36,7 +36,7 @@ namespace DiscordEmbedBuilder
                 if (!InitComplete)
                 {
                     InitComplete = true;
-                    Tools.Logger(null, "Initialized");
+                    //Tools.Logger(null, "Initialized");
                     output.Append(SessionKey);
                 }
                 else

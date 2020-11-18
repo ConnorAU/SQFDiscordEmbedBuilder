@@ -7,7 +7,7 @@
 └──────────────────────────────────────────────────────*/
 
 // The extension deserializer doesn't like empty strings, so this string is reserved as empty
-#define EMPTY_STRING "DEB_EMPTY_STR"
+#define EMPTY_STRING toString[1]
 
 if !(uiNamespace getVariable ["DiscordEmbedBuilder_LoadSuccess",false]) exitwith {false};
 params [["_template","",[""]],["_textParameters",[],[[]]]];
