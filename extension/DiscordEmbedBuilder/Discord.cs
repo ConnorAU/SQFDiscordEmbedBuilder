@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Maca134.Arma.Serializer;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace DiscordEmbedBuilder
 {
@@ -20,10 +21,10 @@ namespace DiscordEmbedBuilder
             {
                 // Remove arma quotations
                 string url = args[0].Trim('"').Replace("\"\"", "\"");
-				string content = args[1].Trim('"').Replace("\"\"", "\"");
+                string content = args[1].Trim('"').Replace("\"\"", "\"");
                 string username = args[2].Trim('"').Replace("\"\"", "\"");
-				string avatar = args[3].Trim('"').Replace("\"\"", "\"");
-				bool tts = Convert.ToBoolean(args[4]);
+                string avatar = args[3].Trim('"').Replace("\"\"", "\"");
+                bool tts = Convert.ToBoolean(args[4]);
                 Types.EmbedsArray embeds = DeserializeObject<Types.EmbedsArray>(args[5]);
 
                 // Discord 2000 character limit
@@ -50,6 +51,11 @@ namespace DiscordEmbedBuilder
                 if (embedProperty.Count() > 0) package.Add(new JProperty("embeds", embedProperty));
 
                 // Execute webhook
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 |
+                     SecurityProtocolType.Tls |
+                     SecurityProtocolType.Tls11 |
+                     SecurityProtocolType.Ssl3;
                 using (HttpClient APIClient = new HttpClient())
                 {
                     APIClient.BaseAddress = new Uri("https://discord.com/api/webhooks/");
@@ -64,21 +70,21 @@ namespace DiscordEmbedBuilder
             }
         }
 
-		private static T DeserializeObject<T>(string value)
-		{
-			value = value.Replace("\"\"", "\\\"\\\"");
-			value = new Regex("([[,]?)nil([],]+)").Replace(value, "$1null$2");
-			Tools.Logger(null, value);
-			return JsonConvert.DeserializeObject<T>(value, new JsonConverter[]
-			{
-				new ArmaJsonConverter()
-			});
-		}
+        private static T DeserializeObject<T>(string value)
+        {
+            value = value.Replace("\"\"", "\\\"\\\"");
+            value = new Regex("([[,]?)nil([],]+)").Replace(value, "$1null$2");
+            Tools.Logger(null, value);
+            return JsonConvert.DeserializeObject<T>(value, new JsonConverter[]
+            {
+                new ArmaJsonConverter()
+            });
+        }
 
-		// The arma array deserializer doesnt like empty strings and I dont know how to fix it, so heres a shit work around
-		private static string RemoveReservedString(string input) => input == $"{(char)1}" ? "" : input;
+        // The arma array deserializer doesnt like empty strings and I dont know how to fix it, so heres a shit work around
+        private static string RemoveReservedString(string input) => input == $"{(char)1}" ? "" : input;
 
-		private static JObject BuildEmbedObject(Types.EmbedArray embed)
+        private static JObject BuildEmbedObject(Types.EmbedArray embed)
         {
             JObject embedObject = new JObject();
             Types.EmbedAuthor embedAuthor = embed.author;

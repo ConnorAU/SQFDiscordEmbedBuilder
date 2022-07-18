@@ -1,4 +1,4 @@
-﻿namespace DiscordEmbedBuilder
+namespace DiscordEmbedBuilder
 {
     public class Types
     {
