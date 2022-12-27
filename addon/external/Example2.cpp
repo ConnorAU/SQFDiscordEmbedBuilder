@@ -17,11 +17,11 @@ class Example2 {
             class Author {
                 name="Connor";
                 url="https://steamcommunity.com/id/_connor";
-                image="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/1e/1e3c83b65d6f34cc9708eae853e8bc9848865dd1_full.jpg";
+                image="https://avatars.akamai.steamstatic.com/ea139abcaf2d2f19c7ec2d76622cb66498e32a85_full.jpg";
             };
             class Footer {
                 text="This is the footer text";
-                image="https://steamcdn-a.opskins.media/steamcommunity/public/images/apps/107410/3212af52faf994c558bd622cb0f360c1ef295a6b.jpg";
+                image="https://arma3.com/favicon.ico";
             };
             fields[]={
                 //{title,content,inline}
