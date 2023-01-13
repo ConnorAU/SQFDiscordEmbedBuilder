@@ -33,13 +33,16 @@ namespace DiscordEmbedBuilder
                 // Bare bones
                 JObject package = new JObject(
                     new JProperty("content", content),
-                    new JProperty("username", username),
-                    new JProperty("avatar_url", avatar),
+                    //new JProperty("username", username),
+                    //new JProperty("avatar_url", avatar),
                     new JProperty("tts", tts)
                 );
 
-                // Build embeds array
-                List<Types.EmbedArray> embedList = BuildEmbedList(embeds);
+				if (username.Length > 0) package.Add(new JProperty("username", username));
+				if (avatar.Length > 0) package.Add(new JProperty("avatar_url", avatar));
+
+				// Build embeds array
+				List<Types.EmbedArray> embedList = BuildEmbedList(embeds);
                 JArray embedProperty = new JArray();
                 for (int i = 0; i < 10; i++)
                 {
@@ -61,7 +64,8 @@ namespace DiscordEmbedBuilder
                     APIClient.BaseAddress = new Uri("https://discord.com/api/webhooks/");
                     APIClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = await APIClient.PostAsync(url, new StringContent(JsonConvert.SerializeObject(package), Encoding.UTF8, "application/json"));
-                    await Tools.LogAsyncReply(response.Content);
+					//Tools.Logger(null,package.ToString());
+					await Tools.LogAsyncReply(response.Content);
                 }
             }
             catch (Exception e)
